@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinnHubApi_AspNetCore", "FinnHubApi_AspNetCore\FinnHubApi_AspNetCore.csproj", "{43AD6EB5-BD21-45D0-90E4-83A6352CCB99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43AD6EB5-BD21-45D0-90E4-83A6352CCB99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43AD6EB5-BD21-45D0-90E4-83A6352CCB99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43AD6EB5-BD21-45D0-90E4-83A6352CCB99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43AD6EB5-BD21-45D0-90E4-83A6352CCB99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8BAC6B4-EDB0-4AB0-8172-8CD705706332}
+	EndGlobalSection
+EndGlobal

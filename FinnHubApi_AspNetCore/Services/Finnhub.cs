@@ -12,17 +12,15 @@ namespace FinnHubApi_AspNetCore.Services
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
         }
-        public async Task<Dictionary<string, object>?> GetCompanyProfile(string stockSymbol)
+        public async Task<Dictionary<string, object>?> GetCompanyProfile(string? stockSymbol)
         {
-            var item1 = _configuration.GetValue<string>("TradingOptions:DefaultStockSymbol");
-            var item2 = _configuration.GetValue<string>("FinhubApi:ApiKey");
             using (HttpClient client = _httpClientFactory.CreateClient())
             {
                 HttpRequestMessage httpRequestMesssage = new HttpRequestMessage()
                 {   
 
-                    RequestUri = new Uri($"https://finnhub.io/api/v1/quote?symbol={stockSymbol?? _configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
-                    //RequestUri = new Uri($"https://finnhub.io/api/v1/profile2?symbol={stockSymbol??_configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
+                    //RequestUri = new Uri($"https://finnhub.io/api/v1/quote?symbol={stockSymbol?? _configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
+                    RequestUri = new Uri($"https://finnhub.io/api/v1/stock/profile2?symbol={stockSymbol??_configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
                     Method = HttpMethod.Get,
                 };
 
@@ -38,9 +36,26 @@ namespace FinnHubApi_AspNetCore.Services
             }
         }
 
-        public Task<Dictionary<string, object>?> GetStockPriceQuote(string stockSymbol)
+        public async Task<Dictionary<string, object>?> GetStockPriceQuote(string? stockSymbol)
         {
-            throw new NotImplementedException();
+            using(HttpClient client =  _httpClientFactory.CreateClient())
+            {
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri($"https://finnhub.io/api/v1/quote?symbol={stockSymbol ?? _configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
+                    Method = HttpMethod.Get,
+                };
+
+                HttpResponseMessage httpResponseMessage = await client.SendAsync(httpRequestMessage);
+                
+                Stream stream = httpResponseMessage.Content.ReadAsStream();
+
+                StreamReader streamReader = new StreamReader(stream);
+
+                string response = streamReader.ReadToEnd() ;
+
+                return JsonSerializer.Deserialize<Dictionary<string, object>?>(response);
+            }
         }
     }
 }

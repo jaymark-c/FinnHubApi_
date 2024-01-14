@@ -12,9 +12,16 @@ namespace FinnHubApi_AspNetCore.Controllers
         }
 
         [Route("/")]
-        public async Task<IActionResult> Index()
+        [Route("/finhub/profile/{symbol}")]
+        public async Task<IActionResult> Index(string? symbol = null)
         {
-            return Json(await _iFin.GetCompanyProfile(null));
+            return Json(await _iFin.GetCompanyProfile(symbol));
+        }
+
+        [Route("/finhub/price/{symbol}")]
+        public async Task<IActionResult> GetTokenPrice(string? symbol = null)
+        {
+            return Json(await _iFin.GetStockPriceQuote(symbol));
         }
     }
 }

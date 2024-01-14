@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinnHubApi_AspNetCore.Controllers
 {
-    public class HomeController : Controller
+    public class TradeController : Controller
     {
         private readonly IFinnhubService _iFin; 
-        public HomeController(IFinnhubService iFin)
+        public TradeController(IFinnhubService iFin)
         {
             _iFin = iFin;
         }

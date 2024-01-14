@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace FinnHubApi_AspNetCore.Services
 {
@@ -13,11 +14,15 @@ namespace FinnHubApi_AspNetCore.Services
         }
         public async Task<Dictionary<string, object>?> GetCompanyProfile(string stockSymbol)
         {
-            using(HttpClient client = _httpClientFactory.CreateClient())
+            var item1 = _configuration.GetValue<string>("TradingOptions:DefaultStockSymbol");
+            var item2 = _configuration.GetValue<string>("FinhubApi:ApiKey");
+            using (HttpClient client = _httpClientFactory.CreateClient())
             {
                 HttpRequestMessage httpRequestMesssage = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri($"https://finnhub.io/api/v1/quote?symbol={stockSymbol??_configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
+                {   
+
+                    RequestUri = new Uri($"https://finnhub.io/api/v1/quote?symbol={stockSymbol?? _configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
+                    //RequestUri = new Uri($"https://finnhub.io/api/v1/profile2?symbol={stockSymbol??_configuration.GetValue<string>("TradingOptions:DefaultStockSymbol")}&token={_configuration.GetValue<string>("FinhubApi:ApiKey")}"),
                     Method = HttpMethod.Get,
                 };
 

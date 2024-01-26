@@ -32,6 +32,9 @@ namespace FinnHubApi_AspNetCore.Services
 
                 string response = streamReader.ReadToEnd();
 
+                if (response.Contains("error"))
+                    return null;
+
                 return JsonSerializer.Deserialize<Dictionary<string, object>>(response);
             }
         }
@@ -53,6 +56,9 @@ namespace FinnHubApi_AspNetCore.Services
                 StreamReader streamReader = new StreamReader(stream);
 
                 string response = streamReader.ReadToEnd() ;
+
+                if (response.Contains("error"))
+                    return null;
 
                 return JsonSerializer.Deserialize<Dictionary<string, object>?>(response);
             }

@@ -1,4 +1,5 @@
-﻿using FinnHubApi_AspNetCore.Services;
+﻿using FinnHubApi_AspNetCore.Models;
+using FinnHubApi_AspNetCore.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinnHubApi_AspNetCore.Controllers
@@ -12,10 +13,21 @@ namespace FinnHubApi_AspNetCore.Controllers
         }
 
         [Route("/")]
-        [Route("/finhub/profile/{symbol}")]
+        [Route("/finhub/token/{symbol}")]
         public async Task<IActionResult> Index(string? symbol = null)
         {
-            return Json(await _iFin.GetCompanyProfile(symbol));
+            var companyProfile = await _iFin.GetCompanyProfile(symbol);
+            var stockPrice = await _iFin.GetStockPriceQuote(symbol);
+
+            var stockTrade = new StockTrade()
+            {
+                StockSymbol = Convert.ToString(companyProfile!["ticker"]??null),
+                StockName = Convert.ToString(companyProfile["name"]??null),
+                Price = Convert.ToDouble(Convert.ToString(stockPrice!["c"] ?? null)),
+                WebUrl = Convert.ToString(companyProfile["weburl"] ?? null),
+            };
+
+            return View("Index", stockTrade);
         }
 
         [Route("/finhub/price/{symbol}")]

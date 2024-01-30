@@ -1,15 +1,23 @@
 ﻿@model StockTrade;
 
 
+<div id="token-api" style="display: none">
+    @ViewBag.Token
+</div>
 <div class="container card border-primary">
     <div class="row justify-content-center align-items-center card-header">
         @Model.StockName
     </div>
     <div class="row card-body justify-content-center align-items-center">
-        <h3 class="card-title">@Model.StockSymbol</h3>
-        <p class="card-text">$ @Model.Price</p>
+        <h3 class="card-title" id="token-symbol">@Model.StockSymbol</h3>
+        <p class="card-text" id="token-price">$ @Model.Price</p>
     </div>
 </div>
 <div class="stock-url">
     <a href="@Model.WebUrl">@Model.WebUrl</a>
 </div>
+
+@section Scripts{
+    @* import scripts *@
+    <script src="~/Scripts/TradeWebSocket.js"></script>
+}

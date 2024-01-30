@@ -1,15 +1,18 @@
 ﻿using FinnHubApi_AspNetCore.Models;
 using FinnHubApi_AspNetCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace FinnHubApi_AspNetCore.Controllers
 {
     public class TradeController : Controller
     {
-        private readonly IFinnhubService _iFin; 
-        public TradeController(IFinnhubService iFin)
+        private readonly IFinnhubService _iFin;
+        private readonly IConfiguration _configuration;
+        public TradeController(IFinnhubService iFin, IConfiguration configuration)
         {
             _iFin = iFin;
+            _configuration = configuration;
         }
 
         [Route("/")]
@@ -27,6 +30,7 @@ namespace FinnHubApi_AspNetCore.Controllers
                 WebUrl = Convert.ToString(companyProfile["weburl"] ?? null),
             };
 
+            ViewBag.Token = _configuration.GetValue<string>("FinhubApi:ApiKey");
             return View("Index", stockTrade);
         }
 

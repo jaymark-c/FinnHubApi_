@@ -7,8 +7,4 @@
     <UserSecretsId>f19b3fa1-a09d-446e-9f00-a3b19e195e4b</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>

@@ -13,7 +13,7 @@ namespace FinnHubApi_AspNetCore.Controllers
         }
 
         [Route("/")]
-        [Route("/finhub/token/{symbol}")]
+        //[Route("/finhub/token/{symbol}")]
         public async Task<IActionResult> Index(string? symbol = null)
         {
             var companyProfile = await _iFin.GetCompanyProfile(symbol);

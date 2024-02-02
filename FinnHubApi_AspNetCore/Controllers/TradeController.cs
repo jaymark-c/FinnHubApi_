@@ -16,18 +16,20 @@ namespace FinnHubApi_AspNetCore.Controllers
         }
 
         [Route("/")]
+        [Route("/finhub/token/{symbol}")]
         //[Route("/finhub/token/{symbol}")]
         public async Task<IActionResult> Index(string? symbol = null)
         {
             var companyProfile = await _iFin.GetCompanyProfile(symbol);
             var stockPrice = await _iFin.GetStockPriceQuote(symbol);
 
+            
             var stockTrade = new StockTrade()
             {
-                StockSymbol = Convert.ToString(companyProfile!["ticker"]??null),
-                StockName = Convert.ToString(companyProfile["name"]??null),
+                StockSymbol = companyProfile.Count == 0 ? null : Convert.ToString(companyProfile["ticker"]??null),
+                StockName = companyProfile.Count == 0 ? null : Convert.ToString(companyProfile["name"]??null),
                 Price = Convert.ToDouble(Convert.ToString(stockPrice!["c"] ?? null)),
-                WebUrl = Convert.ToString(companyProfile["weburl"] ?? null),
+                WebUrl = companyProfile.Count == 0 ? null : Convert.ToString(companyProfile["weburl"] ?? null),
             };
 
             ViewBag.Token = _configuration.GetValue<string>("FinhubApi:ApiKey");

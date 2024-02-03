@@ -9,7 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid d-flex flex-column vh-100">
+        <!-- Set container to flex-column and vh-100 -->
         <div class="row">
             <section class="section-nav pure-orange">
                 <nav class="navbar">
@@ -18,25 +19,28 @@
                             <img src="~/img/finhub_logo.png" alt="Logo" width="40" height="30" class="d-inline-block align-text-top">
                             Finhub_API
                         </a>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        <form asp-controller="Trade" asp-action="Index" class="d-flex" role="search">
+                            <input class="form-control me-2" id="search-token" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" id="search-button" type="submit">Search</button>
                         </form>
                     </div>
                 </nav>
             </section>
         </div>
-        <div class="row flex-grow-1">
-            <section class="section-main-content align-self-center">
-                @RenderBody()
-                @await RenderSectionAsync("scripts", required: false)
-            </section>
+        <div class="row flex-grow-1 justify-content-center align-items-center">
+            <!-- Added justify-content-center and align-items-center to center content -->
+            <div class="col-4">
+                <section class="section-main-content">
+                    @RenderBody()
+                    @await RenderSectionAsync("scripts", required: false)
+                </section>
+            </div>
         </div>
         <div class="row">
-            <section class="fotter-main-content">
-                <footer class="bg-body-tertiary text-center text-lg-start fixed-bottom">
+            <section class="footer-main-content bg-body-tertiary style="background-color: rgba(0, 0, 0, 0.05);">
+                <footer class="text-center text-lg-start">
                     <!-- Copyright -->
-                    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+                    <div class="text-center p-3"">
                         © 2024 Copyright:
                         <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
                     </div>
